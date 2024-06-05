@@ -152,6 +152,9 @@ class App extends Component {
 
     return (
       <div className={`container ${currentMode} ${playingStatus}`}>
+        <div className="right">
+          <span className="right__heading">Focus Pocus</span>
+        </div>
         <div className="left">
           <div className="left__wrapper">
             <AddTask addNewTask={this.addNewTask} />
@@ -164,9 +167,7 @@ class App extends Component {
             />
           </div>
         </div>
-        <div className="right">
-          <span className="right__heading">Focus Pocus</span>
-        </div>
+
         <Timer
           ringtoneRef={this.ringtoneRef}
           isWorking={isWorking}

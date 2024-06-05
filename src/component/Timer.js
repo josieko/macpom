@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import styled from "styled-components";
 import TimerButtons from "./TimerButtons";
 
 class Timer extends Component {
@@ -13,30 +14,55 @@ class Timer extends Component {
     } = this.props;
 
     return (
-      <div className="timer">
+      <TimerContainer>
         <audio ref={ringtoneRef} className="timer__ringtone">
           <source src="" />
         </audio>
 
-        <div className="timer__control-btns">
+        <ControlButtonsContainer>
           <TimerButtons
             isWorking={isWorking}
             isPlaying={isPlaying}
             startTimer={startTimer}
             stopTimer={stopTimer}
           />
-        </div>
+        </ControlButtonsContainer>
 
-        <div className="timer__reset">
-          <button
-            className="timer__reset-btn"
+        <ResetButtonContainer>
+          <ResetButton
             title="Click to reset the timer"
             onClick={() => resetTimer()}
-          />
-        </div>
-      </div>
+          >
+            Reset
+          </ResetButton>
+        </ResetButtonContainer>
+      </TimerContainer>
     );
   }
 }
+
+const TimerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ControlButtonsContainer = styled.div`
+  margin: 20px 0;
+`;
+
+const ResetButtonContainer = styled.div`
+  margin-top: 10px;
+`;
+
+const ResetButton = styled.button`
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+  &:hover {
+    background-color: #e0e0e0;
+  }
+`;
 
 export default Timer;
