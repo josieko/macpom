@@ -1,68 +1,41 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import TimerButtons from "./TimerButtons";
+// Timer.js
+import React, { useState, useEffect } from "react";
 
-class Timer extends Component {
-  render() {
-    const {
-      ringtoneRef,
-      isWorking,
-      isPlaying,
-      startTimer,
-      stopTimer,
-      resetTimer,
-    } = this.props;
+const Timer = ({ isActive, isBreak, onSessionComplete }) => {
+  const [time, setTime] = useState(1500); // 25 minutes in seconds
 
-    return (
-      <TimerContainer>
-        <audio ref={ringtoneRef} className="timer__ringtone">
-          <source src="" />
-        </audio>
+  useEffect(() => {
+    let interval = null;
 
-        <ControlButtonsContainer>
-          <TimerButtons
-            isWorking={isWorking}
-            isPlaying={isPlaying}
-            startTimer={startTimer}
-            stopTimer={stopTimer}
-          />
-        </ControlButtonsContainer>
+    if (isActive) {
+      interval = setInterval(() => {
+        setTime((prevTime) => {
+          if (prevTime === 0) {
+            clearInterval(interval);
+            onSessionComplete();
+            return isBreak ? 300 : 1500; // switch between break (5 min) and session (25 min)
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+    } else {
+      clearInterval(interval);
+    }
 
-        <ResetButtonContainer>
-          <ResetButton
-            title="Click to reset the timer"
-            onClick={() => resetTimer()}
-          >
-            Reset
-          </ResetButton>
-        </ResetButtonContainer>
-      </TimerContainer>
-    );
-  }
-}
+    return () => clearInterval(interval);
+  }, [isActive, isBreak, onSessionComplete]);
 
-const TimerContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+  };
 
-const ControlButtonsContainer = styled.div`
-  margin: 20px 0;
-`;
-
-const ResetButtonContainer = styled.div`
-  margin-top: 10px;
-`;
-
-const ResetButton = styled.button`
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  padding: 10px 20px;
-  cursor: pointer;
-  &:hover {
-    background-color: #e0e0e0;
-  }
-`;
+  return (
+    <div className="timer">
+      <h1>{formatTime(time)}</h1>
+    </div>
+  );
+};
 
 export default Timer;
