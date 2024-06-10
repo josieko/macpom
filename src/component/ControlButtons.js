@@ -8,9 +8,9 @@ export default function ControlButtons({ onStart, onPause, onBreak }) {
   const buttonClick = () => {
     setIsOn(!isOn);
     if (!isOn) {
-      onStart(); // Call handleStart when button is clicked
+      onStart(); 
     } else {
-      onPause(); // Call handlePause when button is clicked
+      onPause(); 
     }
   };
   const buttonTxt = () => {

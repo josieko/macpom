@@ -1,7 +1,7 @@
-// Timer.js
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
-const Timer = ({ isActive, isBreak, onSessionComplete }) => {
+export default function Timer({ isActive, isBreak, onSessionComplete }) {
   const [time, setTime] = useState(1500); // 25 minutes in seconds
 
   useEffect(() => {
@@ -33,9 +33,15 @@ const Timer = ({ isActive, isBreak, onSessionComplete }) => {
 
   return (
     <div className="timer">
-      <h1>{formatTime(time)}</h1>
+      <H1>{formatTime(time)}</H1>
     </div>
   );
 };
 
-export default Timer;
+const H1 = styled.h1` 
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+  font-family: 'Osward', sans-serif;
+  font-weight: 900;
+  color: white;
+  font-size: 282px;
+`;
