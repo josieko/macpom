@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export default function Timer({ isActive, isBreak, onSessionComplete }) {
-  const [time, setTime] = useState(1500); // 25 minutes in seconds
+  const [time, setTime] = useState(1500); 
 
   useEffect(() => {
     let interval = null;
@@ -13,7 +13,7 @@ export default function Timer({ isActive, isBreak, onSessionComplete }) {
           if (prevTime === 0) {
             clearInterval(interval);
             onSessionComplete();
-            return isBreak ? 300 : 1500; // switch between break (5 min) and session (25 min)
+            return isBreak ? 300 : 1500;
           }
           return prevTime - 1;
         });
@@ -32,16 +32,29 @@ export default function Timer({ isActive, isBreak, onSessionComplete }) {
   };
 
   return (
-    <div className="timer">
-      <H1>{formatTime(time)}</H1>
-    </div>
+    <Div>
+      <P $isActive={isActive}>{formatTime(time)}</P>
+    </Div>
   );
 };
 
-const H1 = styled.h1` 
+const P = styled.p` 
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
   font-family: 'Osward', sans-serif;
   font-weight: 900;
-  color: white;
+  color: #d3d3d3;
   font-size: 282px;
+
+  ${(props) => 
+    props.$isActive && 
+    css `
+      color: white;
+      `};
+`;
+
+const Div = styled.div` 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 460px;
 `;

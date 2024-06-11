@@ -1,9 +1,9 @@
 // App.js
 import React, { useState } from "react";
-import Timer from "./component/Timer";
-import TaskList from "./component/TaskList";
-import ControlButtons from "./component/ControlButtons";
 import styled from "styled-components";
+import ControlButtons from "./component/ControlButtons";
+import TaskList from "./component/TaskList";
+import Timer from "./component/Timer";
 
 export default function App() {
   const [isActive, setIsActive] = useState(false);
@@ -20,6 +20,7 @@ export default function App() {
 
   return (
     <PomoContainer isActive={isActive}>
+      <TaskList />
       <Timer
         isActive={isActive}
         isBreak={isBreak}
@@ -32,13 +33,12 @@ export default function App() {
         onPause={handlePause}
         onBreak={handleBreak}
       />
-      <TaskList />
     </PomoContainer>
   );
 }
 
 const PomoContainer = styled.div`
-  background-color: ${(props) => (props.isActive ? "#C3B1E1" : "#967bb6F")};
+  background-color: ${(props) => (props.isActive ? "#CEDFDF" : "#ececec")};
   border-radius: ${(props) => (props.isActive ? "32px" : "40px")};
   margin: 22px;
   padding: 40px;
@@ -46,4 +46,5 @@ const PomoContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-width: 840px;
 `;
