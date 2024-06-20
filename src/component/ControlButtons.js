@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import { PauseOutline, RefreshOutline } from "react-ionicons";
 import styled, { css } from "styled-components";
 
-export default function ControlButtons({ onStart, onPause, onBreak }) {
+export default function ControlButtons({
+  onStart,
+  onPause,
+  onBreak,
+  onRefresh,
+}) {
   const [isOn, setIsOn] = useState(false);
 
-  const buttonClick = () => {
+  const handleStartPause = () => {
     setIsOn(!isOn);
     if (!isOn) {
       onStart();
@@ -13,36 +18,30 @@ export default function ControlButtons({ onStart, onPause, onBreak }) {
       onPause();
     }
   };
-  const buttonTxt = () => {
-    if (isOn) {
-      return (
-        <>
-          <PauseOutline color={"#00000"} height="28px" width="28px" />
-          <RefreshOutline color={"#00000"} height="28px" width="28px" />
-        </>
-      );
-    } else {
-      return "Start";
-    }
+
+  const handleRefresh = () => {
+    setIsOn(false);
+    onRefresh();
   };
+
   return (
     <div>
       {isOn ? (
         <>
-          <Button $primary={isOn} onClick={buttonClick}>
+          <Button $primary={isOn} onClick={handleStartPause}>
             <ButtonText $primary={isOn}>
-              <PauseOutline color={"#00000"} height="28px" width="28px" />
+              <PauseOutline color={"white"} height="28px" width="28px" />
             </ButtonText>
           </Button>
-          <Button $primary={isOn} onClick={buttonClick}>
+          <Button $primary={isOn} onClick={handleRefresh}>
             <ButtonText $primary={isOn}>
-              <RefreshOutline color={"#00000"} height="28px" width="28px" />
+              <RefreshOutline color={"white"} height="28px" width="28px" />
             </ButtonText>
           </Button>
         </>
       ) : (
-        <Button $primary={isOn} onClick={buttonClick}>
-          <ButtonText $primary={isOn}>{buttonTxt()}</ButtonText>
+        <Button $primary={isOn} onClick={handleStartPause}>
+          <ButtonText $primary={isOn}>Start</ButtonText>
         </Button>
       )}
     </div>
@@ -59,6 +58,7 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  transition: background 0.7s ease, border 0.5s ease;
 
   ${(props) =>
     props.$primary &&
@@ -70,6 +70,6 @@ const Button = styled.button`
 
 const ButtonText = styled.span`
   color: ${(props) => (props.$primary ? "#CEDFDF" : "white")};
-  font-weight: bold;
+  font-weight: semi-bold;
   font-size: 24px;
 `;
