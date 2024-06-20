@@ -8,6 +8,7 @@ import Timer from "./component/Timer";
 export default function App() {
   const [isActive, setIsActive] = useState(false);
   const [isBreak, setIsBreak] = useState(false);
+  const [key, setKey] = useState(0);
 
   const handleStart = () => setIsActive(true);
   const handlePause = () => setIsActive(false);
@@ -18,10 +19,16 @@ export default function App() {
     setIsBreak(!isBreak);
   };
 
+  const handleRefresh = () => {
+    setIsActive(false);
+    setKey((prevKey) => prevKey + 1);
+  };
+
   return (
     <PomoContainer isActive={isActive}>
-      <TaskList />
+      <TaskList isActive={isActive} />
       <Timer
+        key={key}
         isActive={isActive}
         isBreak={isBreak}
         onSessionComplete={handleSessionComplete}
@@ -32,13 +39,14 @@ export default function App() {
         onStart={handleStart}
         onPause={handlePause}
         onBreak={handleBreak}
+        onRefresh={handleRefresh}
       />
     </PomoContainer>
   );
 }
 
 const PomoContainer = styled.div`
-  background-color: ${(props) => (props.isActive ? "#CEDFDF" : "#ececec")};
+  background-color: ${(props) => (props.isActive ? "#b2ccbb" : "#F8F7F7 ")};
   border-radius: ${(props) => (props.isActive ? "32px" : "40px")};
   margin: 22px;
   padding: 40px;
@@ -47,4 +55,6 @@ const PomoContainer = styled.div`
   align-items: center;
   justify-content: center;
   min-width: 840px;
+  min-height: 660px;
+  transition: background-color 2.2s ease, border-radius 0.5s ease;
 `;
