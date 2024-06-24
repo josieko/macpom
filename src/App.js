@@ -56,5 +56,5 @@ const PomoContainer = styled.div`
   justify-content: center;
   min-width: 840px;
   min-height: 660px;
-  transition: background-color 2.2s ease, border-radius 0.5s ease;
+  transition: background-color 2.3s ease, border-radius 0.5s ease;
 `;
