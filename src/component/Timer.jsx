@@ -49,7 +49,7 @@ const P = styled.p`
   ${(props) =>
     props.$isActive &&
     css`
-      color: white;
+      color: #fcf2eb;
     `};
 `;
 

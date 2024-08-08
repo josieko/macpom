@@ -3,16 +3,18 @@ import { PauseOutline, RefreshOutline } from "react-ionicons";
 import styled, { css } from "styled-components";
 
 export default function ControlButtons({
+  isOn: propIsOn, // Accept isOn as a prop
   onStart,
   onPause,
   onBreak,
   onRefresh,
 }) {
-  const [isOn, setIsOn] = useState(false);
+  const [isOn, setIsOn] = useState(propIsOn || false);
 
   const handleStartPause = () => {
-    setIsOn(!isOn);
-    if (!isOn) {
+    const nextIsOn = !isOn;
+    setIsOn(nextIsOn);
+    if (nextIsOn) {
       onStart();
     } else {
       onPause();
