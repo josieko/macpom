@@ -1,5 +1,4 @@
 import type { Story, StoryDefault } from "@ladle/react";
-import React from "react";
 import ControlButtons from "./ControlButtons";
 
 export default {
