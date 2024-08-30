@@ -21,6 +21,7 @@
     "react-ionicons": "^4.2.1",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.12",
+    "tailgrids": "^2.2.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
